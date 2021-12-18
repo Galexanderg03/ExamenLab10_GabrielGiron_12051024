@@ -5,7 +5,11 @@
  */
 package examenlab10p2_gabrielgiron_12051024;
 
+import java.awt.Color;
 import java.util.Random;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -40,17 +44,17 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CarrosTree = new javax.swing.JTree();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        BarraJak = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jProgressBar2 = new javax.swing.JProgressBar();
+        BarraCarroMaligno = new javax.swing.JProgressBar();
         Iniciar = new javax.swing.JButton();
         Pausa = new javax.swing.JButton();
         AtkJaktxt = new javax.swing.JLabel();
         HpJaktxt = new javax.swing.JLabel();
         AtkErroltxt = new javax.swing.JLabel();
         HpErroltxt = new javax.swing.JLabel();
-        jProgressBar3 = new javax.swing.JProgressBar();
+        BarraCiberErrol = new javax.swing.JProgressBar();
         Anunciador = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -77,6 +81,8 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Jak 3");
 
+        CrearJTree();
+        UpdateJTree();
         jScrollPane1.setViewportView(CarrosTree);
 
         jLabel2.setText("Jak");
@@ -84,8 +90,18 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         jLabel3.setText("Ciber Errol");
 
         Iniciar.setText("Iniciar Partida");
+        Iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarActionPerformed(evt);
+            }
+        });
 
         Pausa.setText("Pausar/Reaunadar Partida");
+        Pausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PausaActionPerformed(evt);
+            }
+        });
 
         AtkJaktxt.setText("Ataque Jak: ");
 
@@ -109,8 +125,8 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BarraJak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BarraCarroMaligno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Pausa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -118,7 +134,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jProgressBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(BarraCiberErrol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(AtkJaktxt, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
@@ -138,13 +154,13 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                         .addGap(19, 19, 19)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BarraJak, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BarraCarroMaligno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BarraCiberErrol, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Iniciar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -191,8 +207,19 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         jLabel10.setText("Eliminar Carro");
 
         CarroBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        setComboBox();
+        CarroBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CarroBoxActionPerformed(evt);
+            }
+        });
 
         EliminarCarro.setText("Eliminar");
+        EliminarCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarCarroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -207,7 +234,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(CarroAtk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                        .addComponent(CarroAtk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                                         .addComponent(CarroName, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(CarroSpeed, javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,11 +304,9 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 319, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -289,9 +314,9 @@ public class Menu extends javax.swing.JFrame implements Runnable{
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -326,69 +351,112 @@ public class Menu extends javax.swing.JFrame implements Runnable{
             AC.getListaCarros().add(A);
         }
         AC.escribirArchivo();
+        UpdateJTree();
         JOptionPane.showMessageDialog(this, "Carro Creado Exitosamente");
     }//GEN-LAST:event_CrearCarroActionPerformed
+
+    private void CarroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarroBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CarroBoxActionPerformed
+
+    private void EliminarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCarroActionPerformed
+        // TODO add your handling code here:
+        AC.cargarArchivo();
+        CarroBox.remove(CarroBox.getSelectedIndex());
+        System.out.println(AC.getListaCarros().size());
+        System.out.println(CarroBox.getSelectedIndex());
+        AC.getListaCarros().remove(CarroBox.getSelectedIndex());
+        AC.escribirArchivo();
+        UpdateJTree();
+        setComboBox();
+        JOptionPane.showMessageDialog(this, "Carro Borrado Exitosamente");
+    }//GEN-LAST:event_EliminarCarroActionPerformed
+
+    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
+        // TODO add your handling code here:
+        CrearCarroMaligno();
+        System.out.println(CarroMalignoVida);
+        AC.cargarArchivo();
+        for(int i = 0; i < AC.getListaCarros().size(); i++)
+        {
+            if(CarrosTree.getSelectionPath().toString().equals("[Carros, "+AC.getListaCarros().get(i).getNombre()+"]"))
+            {
+                AtaqueJak = (int) AC.getListaCarros().get(i).getAtaque();
+                VidaJak = (int) AC.getListaCarros().get(i).getVida();
+                CiberErrolAtk = CarroMalignoAtk;
+                BarraJak.setMaximum((int) AC.getListaCarros().get(i).getVida());
+                BarraJak.setValue((int) AC.getListaCarros().get(i).getVida());
+                
+                BarraJak.setForeground(Color.green);
+                
+                BarraCarroMaligno.setMaximum(CarroMalignoVida);
+                BarraCiberErrol.setMaximum(CiberErrolVida);
+                
+                BarraCarroMaligno.setValue(CarroMalignoVida);
+                BarraCiberErrol.setValue(CiberErrolVida);
+                
+                BarraCiberErrol.setForeground(Color.red);
+                BarraCarroMaligno.setForeground(Color.red);
+                
+                AtkJaktxt.setText("Ataque Jak: "+AC.getListaCarros().get(i).getAtaque());
+                HpJaktxt.setText("Vida Jak: "+AC.getListaCarros().get(i));
+                AtkErroltxt.setText(CarroMaligno);
+                run();
+                break;
+            }
+        }
+        
+    }//GEN-LAST:event_IniciarActionPerformed
+
+    private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
+        // TODO add your handling code here:
+        if(Pause == false)
+            Pause = true;
+        else if(Pause == true)
+            Pause = false;
+    }//GEN-LAST:event_PausaActionPerformed
     
     private void CrearCarroMaligno()
     {
-        int CarroMalignoAtk = 3+R.nextInt(8);
-        int CarroMalignoVida = 1+R.nextInt(5);
+        CarroMalignoAtk = 3+R.nextInt(5);
+        CarroMalignoVida = 1+R.nextInt(5);
         CarroMaligno = "Carro Maligno";
         
         switch(CarroMalignoAtk)
         {
-            case 3:
-            {
+            case 3 ->             {
                 CarroMalignoAtk = 300;
-                break;
             }
-            case 4:
-            {
+            case 4 ->             {
                 CarroMalignoAtk = 400;
-                break;
             }
-            case 5:
-            {
+            case 5 ->             {
                 CarroMalignoAtk = 500;
-                break;
             }
-            case 6:
-            {
+            case 6 ->             {
                 CarroMalignoAtk = 600;
-                break;
             }
-            case 7:
-            {
+            case 7 ->             {
                 CarroMalignoAtk = 700;
-                break;
             }
         }
+        
         switch(CarroMalignoVida)
         {
-            case 1:
-            {
+            case 1 ->             {
                 CarroMalignoVida = 1000;
-                break;
             }
-            case 2:
-            {
+            case 2 ->             {
                 CarroMalignoVida = 2000;
-                break;
             }
-            case 3:
-            {
+            case 3 ->             {
                 CarroMalignoVida = 3000;
-                break;
             }
-            case 4:
-            {
+            case 4 ->             {
                 CarroMalignoVida = 4000;
-                break;
             }
-            case 5:
-            {
+            case 5 ->             {
                 CarroMalignoVida = 5000;
-                break;
             }
         }
     }
@@ -421,6 +489,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Menu().setVisible(true);
             }
@@ -428,7 +497,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
     }
     private void CrearJTree()
     {
-        DefaultMutableTreeNode tables = new DefaultMutableTreeNode("Tables");
+        DefaultMutableTreeNode tables = new DefaultMutableTreeNode("Carros");
         Arbol = new JTree(tables);
         CarrosTree = Arbol;
     }
@@ -464,10 +533,32 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         }
         Modelo.reload();
     }
+    private void setComboBox()
+    {
+        AC.cargarArchivo();
+        DefaultComboBoxModel Model = new DefaultComboBoxModel();
+        JComboBox combo = new JComboBox(Model);
+        if(AC.getListaCarros().size()== 0)
+        {
+            CarroBox = combo;
+        }
+        else
+        {
+            for(int i = 0; i < AC.getListaCarros().size(); i++)
+            {
+                Model.addElement(AC.getListaCarros().get(i));
+            }
+            CarroBox = combo;
+        }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Anunciador;
     private javax.swing.JLabel AtkErroltxt;
     private javax.swing.JLabel AtkJaktxt;
+    private javax.swing.JProgressBar BarraCarroMaligno;
+    private javax.swing.JProgressBar BarraCiberErrol;
+    private javax.swing.JProgressBar BarraJak;
     private javax.swing.JTextField CarroAtk;
     private javax.swing.JComboBox<String> CarroBox;
     private javax.swing.JTextField CarroDerrape;
@@ -495,9 +586,6 @@ public class Menu extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -505,19 +593,67 @@ public class Menu extends javax.swing.JFrame implements Runnable{
     private JTree Arbol;
     private AdminCarros AC = new AdminCarros("./Carros");
     Random R = new Random();
+    private boolean Pause = false;
     private String CarroMaligno;
     private int CarroMalignoAtk;
     private int CarroMalignoVida;
+    private int CiberErrolVida = 30000;
+    private int CiberErrolAtk;
+    private int AtaqueJak;
+    private int VidaJak;
+    int count;
     Thread Hilo = new Thread();
+
     @Override
     public void run() {
-        try
+        while(true)
         {
-            
-        }
-        catch(Exception E)
-        {
-            E.printStackTrace();
+            System.out.println(CarroMalignoAtk);
+            try
+            {
+                while(Pause == false)
+                {
+                    while(BarraJak.getValue() > 0 && BarraCiberErrol.getValue() > 0)
+                    {
+                        if(BarraCarroMaligno.getValue() > 0)
+                        {
+                            if(count == 2)
+                            {
+                                BarraCarroMaligno.setValue(BarraCarroMaligno.getValue() - AtaqueJak);
+                                count = 0;
+                            }
+                            BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
+                            count++;
+                            Thread.sleep(500);
+                        }
+                        else
+                        {
+                            if(count == 2)
+                            {
+                                BarraCiberErrol.setValue(BarraCiberErrol.getValue() - AtaqueJak);
+                                count = 0;
+                            }
+                            BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
+                            count++;
+                            Thread.sleep(500);
+                        }
+                    }
+                }
+                if(BarraJak.getValue() < 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Perdiste :(");
+                }
+                else if(BarraCiberErrol.getValue() < 0)
+                {
+                    
+                }
+            }
+            catch(Exception E)
+            {
+                E.printStackTrace();
+            }
         }
     }
+    
+
 }

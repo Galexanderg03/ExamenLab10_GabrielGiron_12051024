@@ -36,17 +36,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jTabbedPane1" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" pref="169" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="319" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -57,9 +54,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="68" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,8 +94,8 @@
                               <Component id="jScrollPane1" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jProgressBar1" max="32767" attributes="0"/>
-                                  <Component id="jProgressBar2" max="32767" attributes="0"/>
+                                  <Component id="BarraJak" max="32767" attributes="0"/>
+                                  <Component id="BarraCarroMaligno" max="32767" attributes="0"/>
                                   <Component id="Iniciar" alignment="0" max="32767" attributes="0"/>
                                   <Component id="Pausa" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
@@ -108,7 +105,7 @@
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jProgressBar3" max="32767" attributes="0"/>
+                                  <Component id="BarraCiberErrol" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -136,13 +133,13 @@
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jProgressBar1" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="BarraJak" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jProgressBar2" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="BarraCarroMaligno" min="-2" pref="30" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jProgressBar3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="BarraCiberErrol" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Iniciar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -179,10 +176,13 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTree" name="CarrosTree">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="CrearJTree();&#xa;UpdateJTree();"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+            <Component class="javax.swing.JProgressBar" name="BarraJak">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -194,17 +194,23 @@
                 <Property name="text" type="java.lang.String" value="Ciber Errol"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JProgressBar" name="jProgressBar2">
+            <Component class="javax.swing.JProgressBar" name="BarraCarroMaligno">
             </Component>
             <Component class="javax.swing.JButton" name="Iniciar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Iniciar Partida"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IniciarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Pausa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pausar/Reaunadar Partida"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PausaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="AtkJaktxt">
               <Properties>
@@ -226,7 +232,7 @@
                 <Property name="text" type="java.lang.String" value="Vida Ciber Errol: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JProgressBar" name="jProgressBar3">
+            <Component class="javax.swing.JProgressBar" name="BarraCiberErrol">
             </Component>
             <Component class="javax.swing.JLabel" name="Anunciador">
               <Properties>
@@ -256,7 +262,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Component id="CarroAtk" alignment="0" pref="170" max="32767" attributes="0"/>
+                                              <Component id="CarroAtk" alignment="0" pref="176" max="32767" attributes="0"/>
                                               <Component id="CarroName" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jLabel4" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                               <Component id="CarroSpeed" alignment="0" max="32767" attributes="0"/>
@@ -410,7 +416,11 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CarroBoxActionPerformed"/>
+              </Events>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="setComboBox();"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
@@ -418,6 +428,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarCarroActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

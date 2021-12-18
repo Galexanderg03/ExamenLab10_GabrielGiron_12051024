@@ -14,7 +14,7 @@ import java.util.Random;
 public class Ataque extends Carros{
     Random R = new Random();
     int Bonus = 4+R.nextInt(11);
-    Double BonusAtk;
+    Double BonusAtk = 0.00;
     Double Valor;
     
     public Ataque(String Nombre, int Velocidad, int Derrape, double Ataque, double Vida) {
@@ -22,7 +22,7 @@ public class Ataque extends Carros{
         Valor = Ataque;
         setBonus();
         Ataque = Ataque + BonusAtk;
-        System.out.println(Vida);
+        System.out.println(Ataque);
     }
     
     private void setBonus()

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Belico extends Carros{
     Random R = new Random();
     int Bonus = 4+R.nextInt(11);
-    Double BonusHp;
+    Double BonusHp = 0.00;
     Double Valor;
     
     public Belico(String Nombre, int Velocidad, int Derrape, double Ataque, double Vida) {

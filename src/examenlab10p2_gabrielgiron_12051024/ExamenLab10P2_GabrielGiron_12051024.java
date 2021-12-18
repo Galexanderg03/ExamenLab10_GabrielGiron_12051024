@@ -18,7 +18,6 @@ public class ExamenLab10P2_GabrielGiron_12051024 {
         // TODO code application logic here
         Menu M = new Menu();
         M.setVisible(true);
-        
     }
     
 }
