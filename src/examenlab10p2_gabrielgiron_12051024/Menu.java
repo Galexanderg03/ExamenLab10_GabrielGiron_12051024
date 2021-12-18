@@ -26,6 +26,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
      */
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -56,6 +57,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         HpErroltxt = new javax.swing.JLabel();
         BarraCiberErrol = new javax.swing.JProgressBar();
         Anunciador = new javax.swing.JLabel();
+        CarroMalignovidatxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         CarroName = new javax.swing.JTextField();
@@ -85,9 +87,13 @@ public class Menu extends javax.swing.JFrame implements Runnable{
         UpdateJTree();
         jScrollPane1.setViewportView(CarrosTree);
 
+        BarraJak.setForeground(new java.awt.Color(0, 153, 0));
+
         jLabel2.setText("Jak");
 
         jLabel3.setText("Ciber Errol");
+
+        BarraCarroMaligno.setForeground(new java.awt.Color(255, 0, 0));
 
         Iniciar.setText("Iniciar Partida");
         Iniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +117,11 @@ public class Menu extends javax.swing.JFrame implements Runnable{
 
         HpErroltxt.setText("Vida Ciber Errol: ");
 
+        BarraCiberErrol.setForeground(new java.awt.Color(153, 0, 0));
+
         Anunciador.setText("----------------------------------------------------------------------------------------------");
+
+        CarroMalignovidatxt.setText("Vida Carro Maligno: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,7 +130,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Anunciador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Anunciador, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -141,8 +151,10 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                             .addComponent(HpJaktxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AtkErroltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HpErroltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(HpErroltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(CarroMalignovidatxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AtkErroltxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -175,10 +187,12 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(HpJaktxt)
-                    .addComponent(HpErroltxt))
-                .addGap(18, 18, 18)
+                    .addComponent(CarroMalignovidatxt))
+                .addGap(4, 4, 4)
+                .addComponent(HpErroltxt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Anunciador, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Juego", jPanel1);
@@ -305,7 +319,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 319, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
@@ -321,7 +335,66 @@ public class Menu extends javax.swing.JFrame implements Runnable{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    Thread hilo = new Thread(this);
+    @Override
+    public void run() {
+        while(true)
+        {
+            System.out.println(CarroMalignoAtk);
+            try
+            {
+                while(Pause == false)
+                {
+                    while(BarraJak.getValue() > 0 && BarraCiberErrol.getValue() > 0)
+                    {
+                        if(BarraCarroMaligno.getValue() > 0)
+                        {
+                            if(count == 2)
+                            {
+                                BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
+                                count = 0;
+                            }
+                            BarraCarroMaligno.setValue(BarraCarroMaligno.getValue() - AtaqueJak);
+                            HpJaktxt.setText("Vida Jak: "+BarraJak.getValue());
+                            CarroMalignovidatxt.setText("Vida Carro Maligno: "+BarraCarroMaligno.getValue());
+                            count++;
+                            Thread.sleep(500);
+                        }
+                        else
+                        {
+                            if(count == 2)
+                            {
+                                BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
+                                count = 0;
+                            }
+                            BarraCiberErrol.setValue(BarraCiberErrol.getValue() - AtaqueJak);
+                            HpJaktxt.setText("Vida Jak: "+BarraJak.getValue());
+                            HpErroltxt.setText("Vida Ciber Errol: "+ BarraCiberErrol.getValue());
+                            count++;
+                            Thread.sleep(500);
+                        }
+                        if(BarraJak.getValue() <= 0)
+                        {
+                            JOptionPane.showMessageDialog(this, "Perdiste :(");
+                            break;
+                        }
+                        else if(BarraCiberErrol.getValue() <= 0)
+                        {
+                            FelizNavidad F = new FelizNavidad();
+                            F.setVisible(true);
+                            this.setVisible(false);
+                            break;
+                        }
+                    }
+                }
+            }
+            catch(Exception E)
+            {
+                E.printStackTrace();
+            }
+        }
+    }
+    
     private void CrearCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearCarroActionPerformed
         // TODO add your handling code here:
         String Name = CarroName.getText();
@@ -386,22 +459,20 @@ public class Menu extends javax.swing.JFrame implements Runnable{
                 CiberErrolAtk = CarroMalignoAtk;
                 BarraJak.setMaximum((int) AC.getListaCarros().get(i).getVida());
                 BarraJak.setValue((int) AC.getListaCarros().get(i).getVida());
-                
-                BarraJak.setForeground(Color.green);
-                
+                               
                 BarraCarroMaligno.setMaximum(CarroMalignoVida);
                 BarraCiberErrol.setMaximum(CiberErrolVida);
                 
                 BarraCarroMaligno.setValue(CarroMalignoVida);
                 BarraCiberErrol.setValue(CiberErrolVida);
-                
-                BarraCiberErrol.setForeground(Color.red);
-                BarraCarroMaligno.setForeground(Color.red);
-                
+                               
                 AtkJaktxt.setText("Ataque Jak: "+AC.getListaCarros().get(i).getAtaque());
-                HpJaktxt.setText("Vida Jak: "+AC.getListaCarros().get(i));
-                AtkErroltxt.setText(CarroMaligno);
-                run();
+                HpJaktxt.setText("Vida Jak: "+AC.getListaCarros().get(i).getVida());
+                CarroMalignovidatxt.setText("CiberErrol: " + CarroMalignoVida);
+                HpErroltxt.setText("Vida Ciber Errol: "+ CiberErrolVida);
+                AtkErroltxt.setText("Ataque Ciber Errol: "+ CiberErrolAtk);
+                Anunciador.setText(AC.getListaCarros().get(i).getNombre()+" de Jak VS Carro Maligno de Ciber Errol");
+                hilo.start();
                 break;
             }
         }
@@ -562,6 +633,7 @@ public class Menu extends javax.swing.JFrame implements Runnable{
     private javax.swing.JTextField CarroAtk;
     private javax.swing.JComboBox<String> CarroBox;
     private javax.swing.JTextField CarroDerrape;
+    private javax.swing.JLabel CarroMalignovidatxt;
     private javax.swing.JTextField CarroName;
     private javax.swing.JTextField CarroSpeed;
     private javax.swing.JComboBox<String> CarroTipo;
@@ -602,58 +674,5 @@ public class Menu extends javax.swing.JFrame implements Runnable{
     private int AtaqueJak;
     private int VidaJak;
     int count;
-    Thread Hilo = new Thread();
-
-    @Override
-    public void run() {
-        while(true)
-        {
-            System.out.println(CarroMalignoAtk);
-            try
-            {
-                while(Pause == false)
-                {
-                    while(BarraJak.getValue() > 0 && BarraCiberErrol.getValue() > 0)
-                    {
-                        if(BarraCarroMaligno.getValue() > 0)
-                        {
-                            if(count == 2)
-                            {
-                                BarraCarroMaligno.setValue(BarraCarroMaligno.getValue() - AtaqueJak);
-                                count = 0;
-                            }
-                            BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
-                            count++;
-                            Thread.sleep(500);
-                        }
-                        else
-                        {
-                            if(count == 2)
-                            {
-                                BarraCiberErrol.setValue(BarraCiberErrol.getValue() - AtaqueJak);
-                                count = 0;
-                            }
-                            BarraJak.setValue(BarraJak.getValue() - CarroMalignoAtk);
-                            count++;
-                            Thread.sleep(500);
-                        }
-                    }
-                }
-                if(BarraJak.getValue() < 0)
-                {
-                    JOptionPane.showMessageDialog(this, "Perdiste :(");
-                }
-                else if(BarraCiberErrol.getValue() < 0)
-                {
-                    
-                }
-            }
-            catch(Exception E)
-            {
-                E.printStackTrace();
-            }
-        }
-    }
-    
-
+        
 }
